@@ -1,0 +1,260 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+input AuthInput {
+  login: String!
+  password: String!
+}
+
+input CreateHhDataDto {
+  count: Float!
+  juniorSalary: Float!
+  middleSalary: Float!
+  seniorSalary: Float!
+}
+
+input CreatePageInput {
+  advantages: [CreateTopPageAdvantageDto!]!
+  alias: String!
+  category: String!
+  firstCategory: topLevelCategory!
+  hh: CreateHhDataDto
+  secondCategory: String!
+  seoText: String!
+  tags: [String!]!
+  tagsTitle: String!
+  title: String!
+}
+
+input CreateProductCharacteristicsInput {
+  name: String!
+  value: String!
+}
+
+input CreateProductInput {
+  advantages: String!
+  categories: [String!]!
+  characteristics: [CreateProductCharacteristicsInput!]!
+  credit: Float!
+  description: String!
+  disAdvantages: String!
+  image: String!
+  oldPrice: Float
+  price: Float!
+  tags: [String!]!
+  title: String!
+}
+
+input CreateReviewInput {
+  description: String!
+  name: String!
+  productId: String!
+  rating: Float!
+  title: String!
+}
+
+input CreateTopPageAdvantageDto {
+  description: String!
+  title: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type FileElementResponse {
+  name: String!
+  url: String!
+}
+
+input FindPageInput {
+  firstCategory: topLevelCategory!
+}
+
+type FindPageModel {
+  _id: PageCategory!
+  pages: [Page!]!
+}
+
+input FindProductInput {
+  category: String!
+  limit: Float!
+}
+
+type FindProductModel {
+  _id: String!
+  createdAt: DateTime!
+  description: String!
+  name: String!
+  productId: String!
+  rating: Float!
+  reviewAvg: Float
+  reviewCount: Float!
+  reviews: [ReviewModel!]!
+  title: String!
+  updatedAt: DateTime!
+}
+
+type HhData {
+  count: Float!
+  juniorSalary: Float!
+  middleSalary: Float!
+  seniorSalary: Float!
+}
+
+type LoginModel {
+  access_token: String!
+}
+
+type Mutation {
+  addReview(input: CreateReviewInput!): ReviewModel!
+  createPage(input: CreatePageInput!): PageModel!
+  createProduct(input: CreateProductInput!): ProductModel!
+  deletePage(pageId: String!): PageModel!
+  deleteProduct(productId: String!): ProductModel!
+  deleteReview(reviewId: String!): ReviewModel!
+  findPageByCategory(input: FindPageInput!): FindPageModel
+  findProducts(input: FindProductInput!): [FindProductModel!]!
+  login(input: AuthInput!): LoginModel!
+  register(input: AuthInput!): UserModel!
+  updatePage(input: UpdatePageInput!, pageId: String!): PageModel!
+  updateProduct(input: UpdateProductInput!, productId: String!): ProductModel!
+  uploadFile(file: Upload!): [FileElementResponse!]!
+}
+
+type Page {
+  alias: String!
+  title: String!
+}
+
+type PageAdvantage {
+  description: String!
+  title: String!
+}
+
+type PageCategory {
+  secondCategory: String!
+}
+
+type PageModel {
+  _id: String!
+  advantages: [PageAdvantage!]!
+  alias: String!
+  category: String!
+  createdAt: DateTime!
+  firstCategory: topLevelCategory!
+  hh: HhData
+  secondCategory: String!
+  seoText: String!
+  tags: [String!]!
+  tagsTitle: String!
+  title: String!
+  updatedAt: DateTime!
+}
+
+type ProductCharacteristics {
+  name: String!
+  value: String!
+}
+
+type ProductModel {
+  _id: String!
+  advantages: String!
+  categories: [String!]!
+  characteristics: [ProductCharacteristics!]!
+  createdAt: DateTime!
+  credit: Float!
+  description: String!
+  disAdvantages: String!
+  image: String!
+  oldPrice: Float
+  price: Float!
+  tags: [String!]!
+  title: String!
+  updatedAt: DateTime!
+}
+
+type Query {
+  findPageByQuery(query: String!): [PageModel!]!
+  findReviewsProductById(productId: String!): [ReviewModel!]!
+  getPage(pageId: String!): PageModel!
+  getPageByAlias(alias: String!): PageModel!
+  getProduct(productId: String!): ProductModel!
+}
+
+type ReviewModel {
+  _id: String!
+  createdAt: DateTime!
+  description: String!
+  name: String!
+  productId: String!
+  rating: Float!
+  title: String!
+  updatedAt: DateTime!
+}
+
+input UpdateHhDataDto {
+  count: Float
+  juniorSalary: Float
+  middleSalary: Float
+  seniorSalary: Float
+}
+
+input UpdatePageInput {
+  advantages: [UpdateTopPageAdvantageDto!]
+  alias: String
+  category: String
+  firstCategory: topLevelCategory
+  hh: UpdateHhDataDto
+  secondCategory: String
+  seoText: String
+  tags: [String!]
+  tagsTitle: String
+  title: String
+}
+
+input UpdateProductCharacteristicsInput {
+  name: String
+  value: String
+}
+
+input UpdateProductInput {
+  advantages: String
+  categories: [String!]
+  characteristics: [UpdateProductCharacteristicsInput!]
+  credit: Float
+  description: String
+  disAdvantages: String
+  image: String
+  oldPrice: Float
+  price: Float
+  tags: [String!]
+  title: String
+}
+
+input UpdateTopPageAdvantageDto {
+  description: String
+  title: String
+}
+
+"""
+The `Upload` scalar type represents a file upload.
+"""
+scalar Upload
+
+type UserModel {
+  _id: String!
+  createdAt: DateTime!
+  email: String!
+  passwordHash: String!
+  updatedAt: DateTime!
+}
+
+enum topLevelCategory {
+  Books
+  Courses
+  Products
+  Services
+}
